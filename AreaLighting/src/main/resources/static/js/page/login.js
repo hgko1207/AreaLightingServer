@@ -94,8 +94,6 @@ document.addEventListener('DOMContentLoaded', function() {
     LoginValidation.init();
     
     $.backstretch([
-    	contextPath + "/images/land1.jpg",
-    	contextPath + "/images/land2.jpg",
-    	contextPath + "/images/land3.jpg"
+    	contextPath + "/images/login_bg1.jpg",
     ], {duration: 3000, fade: 750});
 });
