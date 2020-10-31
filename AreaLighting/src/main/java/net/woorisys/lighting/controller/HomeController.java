@@ -26,4 +26,12 @@ public class HomeController {
 		}
         return "login";
     }
+	
+	/**
+	 * 대시보드 화면
+	 * @param model
+	 */
+	@GetMapping("home")
+    public void home(Model model) {
+    }
 }

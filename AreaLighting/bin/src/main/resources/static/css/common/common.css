@@ -1,0 +1,10 @@
+@charset "EUC-KR";
+
+@font-face {
+	font-family: 'NanumBarunGothic';
+	src: local("☺"), url("../../fonts/NanumBarunGothic.woff") format("woff");
+}
+
+body {
+	/* font-family: "Helvetica Neue", Helvetica, Arial, "NanumBarunGothic", sans-serif; */
+}
