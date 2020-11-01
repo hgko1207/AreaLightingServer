@@ -3,7 +3,42 @@
 <!-- sidebarFragment 사용 -->
 <th:block th:fragment="sidebarFragment">
 	<div class="sidebar sidebar-dark sidebar-main sidebar-expand-md">
+		<div class="sidebar-mobile-toggler text-center">
+			<a href="#" class="sidebar-mobile-main-toggle">
+				<i class="icon-arrow-left8"></i>
+			</a>
+			Navigation
+			<a href="#" class="sidebar-mobile-expand">
+				<i class="icon-screen-full"></i>
+				<i class="icon-screen-normal"></i>
+			</a>
+		</div>
 		
+		<div class="sidebar-content">
+			<div class="card card-sidebar-mobile">
+				<ul class="nav nav-sidebar" data-nav-type="accordion">
+					<li class="nav-item-header">
+						<div class="text-uppercase font-size-md line-height-md">관리</div> 
+						<i class="icon-menu" title="Main"></i>
+					</li>
+					<li id="home" class="nav-item">
+						<a th:href="@{/home}" class="nav-link">
+							<i class="icon-home4"></i><span>대시보드</span>
+						</a>
+					</li>
+					<li id="city" class="nav-item">
+						<a th:href="@{/city/list}" class="nav-link">
+							<i class="icon-notification2"></i><span>도시 관리</span>
+						</a>
+					</li>
+					<li id="apartment" class="nav-item">
+						<a th:href="@{/apartment/list}" class="nav-link">
+							<i class="icon-notification2"></i><span>단지 관리</span>
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
 	</div>
 	
 	<script>
