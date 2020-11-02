@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import net.woorisys.lighting.domain.db.City;
+import net.woorisys.lighting.domain.param.SearchParam;
 import net.woorisys.lighting.repository.CityRepository;
 import net.woorisys.lighting.service.CityService;
 
@@ -59,5 +60,13 @@ public class CityServiceImpl implements CityService {
 
 	private boolean isNew(City domain) {
 		return !cityRepository.existsById(domain.getId());
+	}
+
+	@Override
+	public List<City> getList(SearchParam param) {
+		if (!param.getName().isEmpty()) {
+			return cityRepository.findByNameContaining(param.getName());
+		}
+		return getList();
 	}
 }

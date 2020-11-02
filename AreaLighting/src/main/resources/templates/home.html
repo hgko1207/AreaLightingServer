@@ -7,10 +7,53 @@
     </th:block>
     
     <th:block layout:fragment="content">
-    
+    	<div class="page-header page-header-light">
+	    	<div class="page-header-content header-elements-md-inline">
+				<div class="page-title d-flex">
+					<h4>
+						<i class="icon-home5 mr-3"></i><span class="font-weight-bold">Dashboard</span>
+					</h4>
+				</div>
+			</div>
+			<div class="breadcrumb-line breadcrumb-line-light header-elements-md-inline">
+				<div class="d-flex">
+					<div class="breadcrumb">
+						<a th:href="@{/home}" class="breadcrumb-item">
+							<i class="icon-home2 mr-2"></i> Home
+						</a>
+						<span class="breadcrumb-item active">Dashboard</span>
+					</div>
+				</div>
+			</div>
+    	</div>
+    	
+    	<div class="content">
+    		<div class="mb-3">
+				<h6 class="mb-0 font-weight-semibold">
+					Simple statistics
+				</h6>
+				<span class="text-muted d-block">통계 수치를 확인하세요.</span>
+			</div>
+			
+			<div class="row">
+				<div class="col-md-3">
+					<div class="card card-body">
+						<div class="media">
+							<div class="mr-3 align-self-center">
+								<i class="icon-city icon-3x text-primary-400"></i>
+							</div>
+		
+							<div class="media-body text-right">
+								<h3 class="font-weight-semibold mb-0">[[${cityList}]]</h3>
+								<span class="font-size-sm text-muted">도시 수</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+    	</div>
     </th:block>
     
     <th:block layout:fragment="script">
-    
     </th:block>
 </html>

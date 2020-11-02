@@ -1,6 +1,8 @@
 package net.woorisys.lighting.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
@@ -13,4 +15,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("apartment")
 public class ApartmentController {
 
+	/**
+	 * 목록 화면
+	 * @param model
+	 */
+	@GetMapping("list")
+    public void list(Model model) {
+    }
 }

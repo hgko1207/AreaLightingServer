@@ -39,6 +39,17 @@ public class CityController {
     }
 	
 	/**
+	 * 정보 불러오기
+	 * @param id
+	 * @return
+	 */
+	@GetMapping("get")
+	@ResponseBody
+	public City get(int id) {
+		return cityService.get(id);
+	}
+	
+	/**
 	 * 조회
 	 * @param param
 	 * @return
@@ -46,16 +57,8 @@ public class CityController {
 	@PostMapping("search")
 	@ResponseBody 
 	public ResponseEntity<?> search(@RequestBody SearchParam param) {
-		return new ResponseEntity<>(cityService.getList(), HttpStatus.OK);
+		return new ResponseEntity<>(cityService.getList(param), HttpStatus.OK);
 	}
-	
-	/**
-	 * 등록 화면
-	 * @param model
-	 */
-	@GetMapping("regist")
-    public void regist(Model model) {
-    }
 	
 	/**
 	 * 등록
@@ -72,14 +75,6 @@ public class CityController {
 	}
 	
 	/**
-	 * 수정 화면
-	 * @param model
-	 */
-	@GetMapping("update")
-    public void update(Model model) {
-    }
-	
-	/**
 	 * 수정
 	 * @param city
 	 * @return
@@ -92,14 +87,6 @@ public class CityController {
 		}
 		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 	}
-	
-	/**
-	 * 삭제 화면
-	 * @param model
-	 */
-	@GetMapping("delete")
-    public void delete(Model model) {
-    }
 	
 	/**
 	 * 삭제

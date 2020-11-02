@@ -8,3 +8,20 @@
 body {
 	/* font-family: "Helvetica Neue", Helvetica, Arial, "NanumBarunGothic", sans-serif; */
 }
+
+/*****************************************************/
+/* Navbar */
+/*****************************************************/
+.navbar-brand {
+	padding-top: 0.5rem;
+	padding-bottom: 0.5rem;
+}
+
+.navbar-brand img {
+	height: 2rem;
+}
+
+.navigation-title {
+	font-weight: 600;
+	font-size: 1rem;
+}

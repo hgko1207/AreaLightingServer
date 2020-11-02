@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="layout/default_layout">
+
+    <th:block layout:fragment="css">
+    </th:block>
+    
+    <th:block layout:fragment="content">
+    	<div class="page-header page-header-light">
+	    	<div class="page-header-content header-elements-md-inline">
+				<div class="page-title d-flex">
+					<h4>
+						<i class="icon-office mr-3"></i><span class="font-weight-bold">단지 관리</span>
+					</h4>
+				</div>
+			</div>
+			<div class="breadcrumb-line breadcrumb-line-light header-elements-md-inline">
+				<div class="d-flex">
+					<div class="breadcrumb">
+						<a th:href="@{/home}" class="breadcrumb-item">
+							<i class="icon-home2 mr-2"></i> Home
+						</a>
+						<span class="breadcrumb-item active">단지 관리</span>
+					</div>
+				</div>
+			</div>
+    	</div>
+    	
+    	<div class="content">
+    		<div class="row">
+    			<div class="col-md-2">
+    			
+    			</div>
+    			<div class="col-md-10">
+    			
+    			</div>
+    		</div>
+    	</div>
+    </th:block>
+    
+    <th:block layout:fragment="script">
+    
+    </th:block>
+</html>
