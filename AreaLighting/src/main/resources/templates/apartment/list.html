@@ -3,6 +3,7 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="layout/default_layout">
 
     <th:block layout:fragment="css">
+    	<link rel="stylesheet" th:href="@{/css/page/apartment.css}">
     </th:block>
     
     <th:block layout:fragment="content">
@@ -29,16 +30,37 @@
     	<div class="content">
     		<div class="row">
     			<div class="col-md-2">
-    			
+    				<div class="card city-card">
+						<div class="card-header bg-light text-center">
+							<h6 class="card-title font-weight-bold">도시 목록</h6>
+						</div>
+						<table class="table table-bordered" id="cityTable">
+							<thead class="text-center d-none">
+								<tr class="table-active">
+									<th>도시 명</th>
+								</tr>
+							</thead>
+							<tbody class="text-center"></tbody>
+						</table>
+					</div>
     			</div>
     			<div class="col-md-10">
-    			
+    				<div id="apartment_card" class="card d-none">
+    					<div class="card-header header-elements-inline">
+							<h5 id="danji_name" class="card-title">서울의 단지 목록</h5>
+							<div id="danji_regist" class="header-elements">
+								<!-- <a th:href="@{/apartment/regist}" class="btn bg-blue-400 btn-block"><i class="icon-pencil5 mr-2"></i>단지 등록</a> -->
+		                	</div>
+						</div>
+						<div id="apartment_body" class="card-body">
+						</div>
+    				</div>
     			</div>
     		</div>
     	</div>
     </th:block>
     
     <th:block layout:fragment="script">
-    
+    	<script th:src="@{/js/page/apartment.js}"></script>
     </th:block>
 </html>

@@ -64,7 +64,7 @@ public class CityServiceImpl implements CityService {
 
 	@Override
 	public List<City> getList(SearchParam param) {
-		if (!param.getName().isEmpty()) {
+		if (param.getName() != null && !param.getName().isEmpty()) {
 			return cityRepository.findByNameContaining(param.getName());
 		}
 		return getList();

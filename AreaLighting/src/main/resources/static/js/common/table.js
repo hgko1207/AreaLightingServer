@@ -47,6 +47,22 @@ var Datatables = {
 		
 		return table;
 	},
+	select: function(id, tableOption, info) {
+		var table = $(id).DataTable({
+			dom: '<"datatable-header"fl><"datatable-scroll-wrap"t>',
+			select: {
+                style: 'single',
+            },
+			language: {
+				info: info ? info : " _TOTAL_ 개의 데이터가 있습니다." 
+			},
+			columns: tableOption.columns,
+		    paging: false,
+		    ordering: false,
+		});
+		
+		return table;
+	},
 	rowsAdd: function(table, url, param) {
 		table.clear().draw();
 		
@@ -57,6 +73,20 @@ var Datatables = {
 			contentType: "application/json",
 			success: function(data) {
 				table.rows.add(data).draw();
+		   	}
+		});
+	},
+	selectAdd: function(table, url, param) {
+		table.clear().draw();
+		
+		$.ajax({
+			url: url,
+			type: "POST",
+			data: JSON.stringify(param),
+			contentType: "application/json",
+			success: function(data) {
+				table.rows.add(data).draw();
+				table.row(':eq(0)').select();
 		   	}
 		});
 	},

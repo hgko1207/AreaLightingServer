@@ -22,4 +22,13 @@ public class ApartmentController {
 	@GetMapping("list")
     public void list(Model model) {
     }
+	
+	/**
+	 * 등록 화면
+	 * @param model
+	 */
+	@GetMapping("regist")
+    public void regist(Model model, int id) {
+		System.err.println(id);
+    }
 }
