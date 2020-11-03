@@ -28,10 +28,131 @@
     	</div>
     	
     	<div class="content">
-    		
+    		<div class="row">
+    			<div class="col-md-7 mx-md-auto">
+    				<div class="card">
+    					<form id="registForm" role="form" method="POST" th:action="@{/apartment/regist}">
+    						<div class="card-header bg-transparent">
+    							<h5 class="card-title">[[${city.name}]]의 단지 등록</h5>
+    						</div>
+    						<div class="card-body">
+    							<input type="hidden" name="cityId" th:value="${city.id}">
+	    						<div class="form-group row mt-2">
+									<label class="col-md-3 col-form-label text-md-right">단지 명 :</label>
+									<div class="col-md-7">
+										<input type="text" class="form-control" name="name" autocomplete="off" required>
+									</div>
+								</div>
+								<div class="form-group row">
+									<label class="col-md-3 col-form-label text-md-right">비밀번호 :</label>
+									<div class="col-md-7">
+										<input type="password" class="form-control" name="password" autocomplete="off" required>
+									</div>
+								</div>
+								<div class="form-group row">
+									<label class="col-md-3 col-form-label text-md-right">비밀번호 확인 :</label>
+									<div class="col-md-7">
+										<input type="password" class="form-control" name="passwordCheck" autocomplete="off" required>
+									</div>
+								</div>
+								
+								<div class="form-group row mt-2">
+									<table class="table col-md-8 mx-md-auto order-list">
+										<thead>
+	                                        <tr>
+	                                            <th scope="col">지하 층</th>
+	                                            <th scope="col">채널번호</th>
+	                                            <th scope="col">
+	                                            	<button type="button" class="btn btn-sm bg-success" id="addrow">
+									            		<i class="icon-plus3 mr-2"></i>추가
+								            		</button>
+	                                            </th>
+	                                        </tr>
+	                                    </thead>
+	                                    <tbody>
+	                                    	<tr>
+	                                    		<td>
+	                                    			<input type="text" class="form-control" name="floors[0].name"
+	                                    				placeholder="예) 지하 1층" required/>
+                                    			</td>
+	                                    		<td>
+	                                    			<input type="number" class="form-control" name="floors[0].channel"
+	                                    				placeholder="1 ~ 36" required/>
+                                    			</td>
+	                                    		<td><a class="deleteRow"></a></td>
+	                                    	</tr>
+	                                    </tbody>
+									</table>
+								</div>
+    						</div>
+    						<div class="card-footer bg-white d-flex justify-content-center align-items-center py-3">
+								<button type="submit" class="btn bg-blue-400 mr-3 px-4"><i class="icon-pencil5 mr-2"></i>등 록</button>
+								<a href="list" class="btn btn-light px-4"><i class="icon-list mr-2"></i>목 록</a>
+							</div>
+						</form>
+    				</div>
+    			</div>
+    		</div>
     	</div>
     </th:block>
     
     <th:block layout:fragment="script">
+    	<script>
+    	$(document).ready(function () {
+    		var counter = 1;
+
+    	    $("#addrow").on("click", function () {
+    	        var cols = "";
+    	        cols += '<td><input type="text" class="form-control" name="floors[' + counter + '].name" placeholder="예) 지하 1층" required/></td>';
+    	        cols += '<td><input type="number" class="form-control" name="floors[' + counter + '].channel" placeholder="1 ~ 36" required/></td>';
+    	        cols += '<td><button type="button" class="ibtnDel btn btn-sm btn-danger"><i class="icon-minus3 mr-2"></i>삭제</button></td>';
+    	        
+    	        var newRow = $("<tr>");
+    	        newRow.append(cols);
+    	        
+    	        $("table.order-list").append(newRow);
+    	        counter++;
+    	    });
+
+    	    $("table.order-list").on("click", ".ibtnDel", function (event) {
+    	        $(this).closest("tr").remove();       
+    	        counter -= 1
+    	    });
+    	    
+    	    $('#registForm').submit(function(e) {
+    	    	e.preventDefault();
+    	    	
+    	    	const password = $('input[name=password]').val();
+    	    	const passwordCheck = $('input[name=passwordCheck]').val();
+    	    	if (password != passwordCheck) {
+    	    		swalInit.fire({title: "비밀번호가 일치하지 않습니다.", type: "error"});
+    	    		return;
+    	    	}
+    	    	
+    	    	var form = $(this);
+    	        var url = form.attr('action');
+    	        var formData = new FormData($("#registForm")[0]);
+
+    	        $.ajax({
+    	    		type: "POST",
+    	           	url: url,
+    	           	data: formData,
+    	           	processData: false,
+    	           	contentType: false,
+    	           	success: function(response) {
+    	           		swalInit.fire({
+    	       				title: "단지 등록이 되었습니다.", 
+    	       				type: "success"
+    	       			}).then(function(e) {
+    	       				location.replace(contextPath + "/apartment/list");
+    	       			});
+    	           	},
+    	            error: function(response) {
+    	            	swalInit.fire({title: "단지 등록을 실패하였습니다.", type: "error"});
+    	            }
+    	    	});
+    	    });
+    	});
+    	</script>
     </th:block>
 </html>

@@ -14,6 +14,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.Fetch;
@@ -62,4 +63,7 @@ public class Apartment implements Domain {
 	
 	@UpdateTimestamp
 	private LocalDateTime updateDate;
+	
+	@Transient
+	private int cityId;
 }
