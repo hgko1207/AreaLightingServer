@@ -16,6 +16,7 @@ import net.woorisys.lighting.service.FloorService;
  * @author hgko
  *
  */
+@Transactional
 @Service
 public class FloorServiceImpl implements FloorService {
 
@@ -59,5 +60,11 @@ public class FloorServiceImpl implements FloorService {
 
 	private boolean isNew(Floor domain) {
 		return !floorRepository.existsById(domain.getId());
+	}
+
+	@Override
+	public boolean deleteFromApartment(long id) {
+		floorRepository.deleteByApartmentId(id);
+		return true;
 	}
 }

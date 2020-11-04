@@ -17,6 +17,7 @@ import net.woorisys.lighting.service.CityService;
  * @author hgko
  *
  */
+@Transactional
 @Service
 public class CityServiceImpl implements CityService {
 

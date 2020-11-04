@@ -16,6 +16,7 @@ import net.woorisys.lighting.service.ApartmentService;
  * @author hgko
  *
  */
+@Transactional
 @Service
 public class ApartmentServiceImpl implements ApartmentService {
 
@@ -39,7 +40,7 @@ public class ApartmentServiceImpl implements ApartmentService {
 			return apartmentRepository.save(domain) != null;
 		} else {
 			return false;
-		}	
+		}
 	}
 
 	@Override
@@ -53,11 +54,30 @@ public class ApartmentServiceImpl implements ApartmentService {
 
 	@Override
 	public boolean delete(Long id) {
+		System.err.println(id);
 		apartmentRepository.deleteById(id);
 		return true;
 	}
 
 	private boolean isNew(Apartment domain) {
 		return !apartmentRepository.existsById(domain.getId());
+	}
+
+	@Override
+	public Apartment registToDomain(Apartment domain) {
+		if (isNew(domain)) {
+			return apartmentRepository.save(domain);
+		} else {
+			return null;
+		}
+	}
+
+	@Override
+	public Apartment updateToDomain(Apartment domain) {
+		if (!isNew(domain)) {
+			return apartmentRepository.save(domain);
+		} else {
+			return null;
+		}
 	}
 }

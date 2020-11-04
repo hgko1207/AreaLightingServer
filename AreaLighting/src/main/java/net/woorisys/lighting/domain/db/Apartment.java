@@ -19,11 +19,14 @@ import javax.persistence.Transient;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Data;
+import lombok.ToString;
 import net.woorisys.lighting.domain.Domain;
 
 /**
@@ -35,6 +38,7 @@ import net.woorisys.lighting.domain.Domain;
 @Entity
 @Table(name = "tb_apartment")
 @Data
+@ToString(exclude = { "floors" })
 public class Apartment implements Domain {
 
 	@Id
@@ -49,13 +53,13 @@ public class Apartment implements Domain {
 	@Column(nullable = false, length = 20)
 	private String password;
 	
-	@ManyToOne
-	@JoinColumn(name = "city_id")
-    @JsonIgnore
-    private City city;
+//	@ManyToOne
+//	@JoinColumn(name = "city_id")
+//    @JsonIgnore
+//    private City city;
 	
-	@OneToMany(mappedBy = "apartment", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@Fetch(FetchMode.SUBSELECT)
+	@OneToMany(mappedBy = "apartment", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+//	@Fetch(FetchMode.SUBSELECT)
 	private List<Floor> floors;
 	
 	@CreationTimestamp
@@ -64,6 +68,5 @@ public class Apartment implements Domain {
 	@UpdateTimestamp
 	private LocalDateTime updateDate;
 	
-	@Transient
 	private int cityId;
 }

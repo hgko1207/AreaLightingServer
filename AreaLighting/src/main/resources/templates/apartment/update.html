@@ -10,7 +10,7 @@
 	    	<div class="page-header-content header-elements-md-inline">
 				<div class="page-title d-flex">
 					<h4>
-						<i class="icon-office mr-3"></i><span class="font-weight-bold">단지 등록</span>
+						<i class="icon-office mr-3"></i><span class="font-weight-bold">단지 수정</span>
 					</h4>
 				</div>
 			</div>
@@ -21,7 +21,7 @@
 							<i class="icon-home2 mr-2"></i> Home
 						</a>
 						<span class="breadcrumb-item">단지 관리</span>
-						<span class="breadcrumb-item active">단지 등록</span>
+						<span class="breadcrumb-item active">단지 수정</span>
 					</div>
 				</div>
 			</div>
@@ -31,16 +31,13 @@
     		<div class="row">
     			<div class="col-md-7 mx-md-auto">
     				<div class="card">
-    					<form id="registForm" role="form" method="POST" th:action="@{/apartment/regist}">
-    						<div class="card-header bg-transparent">
-    							<h5 class="card-title">[[${city.name}]]의 단지 등록</h5>
-    						</div>
+    					<form id="updateForm" role="form" th:action="@{/apartment/update}">
     						<div class="card-body">
-    							<input type="hidden" name="cityId" th:value="${city.id}">
+    							<input type="hidden" name="id" th:value="${apartment.id}"/>
 	    						<div class="form-group row mt-2">
 									<label class="col-md-3 col-form-label text-md-right">단지 명 :</label>
 									<div class="col-md-7">
-										<input type="text" class="form-control" name="name" autocomplete="off" required>
+										<input type="text" class="form-control" name="name" th:value="${apartment.name}" autocomplete="off" required/>
 									</div>
 								</div>
 								<div class="form-group row">
@@ -69,24 +66,12 @@
 	                                            </th>
 	                                        </tr>
 	                                    </thead>
-	                                    <tbody>
-	                                    	<tr>
-	                                    		<td>
-	                                    			<input type="text" class="form-control" name="floors[0].name"
-	                                    				placeholder="예) 지하 1층" required/>
-                                    			</td>
-	                                    		<td>
-	                                    			<input type="number" class="form-control" name="floors[0].channel"
-	                                    				placeholder="1 ~ 36" required/>
-                                    			</td>
-	                                    		<td><a class="deleteRow"></a></td>
-	                                    	</tr>
-	                                    </tbody>
+	                                    <tbody id="floor_tbody"></tbody>
 									</table>
 								</div>
-    						</div>
-    						<div class="card-footer bg-white d-flex justify-content-center align-items-center py-3">
-								<button type="submit" class="btn bg-blue-400 mr-3 px-4"><i class="icon-pencil5 mr-2"></i>등 록</button>
+							</div>
+							<div class="card-footer bg-white d-flex justify-content-center align-items-center py-3">
+								<button type="submit" class="btn bg-blue-400 mr-3 px-4"><i class="icon-pencil5 mr-2"></i>수 정</button>
 								<a href="list" class="btn btn-light px-4"><i class="icon-list mr-2"></i>목 록</a>
 							</div>
 						</form>
@@ -97,9 +82,25 @@
     </th:block>
     
     <th:block layout:fragment="script">
-    	<script>
+    	<script th:inline="javascript">
     	$(document).ready(function () {
-    		var counter = 1;
+    		var apartment = [[${apartment}]];
+    		var counter = apartment.floors.length;
+    		
+    		$.each(apartment.floors, function(index, data) {
+    			var tr = '<tr>' + 
+   					'<td><input type="text" class="form-control" name="floors[' + index + '].name" value="' + data.name + '" required/></td>' +
+    				'<td><input type="number" class="form-control" name="floors[' + index + '].channel" value="' + data.channel + '" required/></td>';
+    			if (index === 0) {
+    				tr += '<td></td>';
+    			} else {
+    				tr += '<td><button type="button" class="ibtnDel btn btn-sm btn-danger"><i class="icon-minus3 mr-2"></i>삭제</button></td>';
+    			}
+    			tr += '</tr>';
+    			
+    			$('#floor_tbody').append(tr);
+    		});
+    		
 
     	    $("#addrow").on("click", function () {
     	        var cols = "";
@@ -115,11 +116,11 @@
     	    });
 
     	    $("table.order-list").on("click", ".ibtnDel", function (event) {
-    	        $(this).closest("tr").remove();       
+    	        $(this).closest("tr").remove();
     	        counter -= 1;
     	    });
     	    
-    	    $('#registForm').submit(function(e) {
+    	    $('#updateForm').submit(function(e) {
     	    	e.preventDefault();
     	    	
     	    	const password = $('input[name=password]').val();
@@ -131,24 +132,24 @@
     	    	
     	    	var form = $(this);
     	        var url = form.attr('action');
-    	        var formData = new FormData($("#registForm")[0]);
-
+    	        var formData = new FormData($("#updateForm")[0]);
+    	        
     	        $.ajax({
-    	    		type: "POST",
+    	    		type: "PUT",
     	           	url: url,
     	           	data: formData,
     	           	processData: false,
     	           	contentType: false,
     	           	success: function(response) {
     	           		swalInit.fire({
-    	       				title: "단지 등록이 되었습니다.", 
+    	       				title: "단지 정보 수정 되었습니다.", 
     	       				type: "success"
     	       			}).then(function(e) {
     	       				location.replace(contextPath + "/apartment/list");
     	       			});
     	           	},
     	            error: function(response) {
-    	            	swalInit.fire({title: "단지 등록을 실패하였습니다.", type: "error"});
+    	            	swalInit.fire({title: "단지 수정을 실패하였습니다.", type: "error"});
     	            }
     	    	});
     	    });

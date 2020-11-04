@@ -19,6 +19,7 @@ import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import lombok.Data;
+import lombok.ToString;
 import net.woorisys.lighting.domain.Domain;
 
 /**
@@ -30,6 +31,7 @@ import net.woorisys.lighting.domain.Domain;
 @Entity
 @Table(name = "tb_city")
 @Data
+//@ToString(exclude = { "apartments" })
 public class City implements Domain {
 
 	@Id
@@ -43,9 +45,9 @@ public class City implements Domain {
 	/** 순서 */
 	private int num;
 
-	@OneToMany(mappedBy = "city", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@Fetch(FetchMode.SUBSELECT)
-	private List<Apartment> apartments;
+//	@OneToMany(mappedBy = "city", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+//	@Fetch(FetchMode.SUBSELECT)
+//	private List<Apartment> apartments;
 
 	@CreationTimestamp
 	private LocalDateTime createDate;

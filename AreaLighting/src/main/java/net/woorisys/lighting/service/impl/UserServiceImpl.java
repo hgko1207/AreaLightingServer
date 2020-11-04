@@ -16,6 +16,7 @@ import net.woorisys.lighting.service.UserService;
  * @author hgko
  *
  */
+@Transactional
 @Service
 public class UserServiceImpl implements UserService {
 
