@@ -54,7 +54,6 @@ public class ApartmentServiceImpl implements ApartmentService {
 
 	@Override
 	public boolean delete(Long id) {
-		System.err.println(id);
 		apartmentRepository.deleteById(id);
 		return true;
 	}
@@ -79,5 +78,16 @@ public class ApartmentServiceImpl implements ApartmentService {
 		} else {
 			return null;
 		}
+	}
+
+	@Override
+	public List<Apartment> getList(int cityId) {
+		return apartmentRepository.findByCityId(cityId);
+	}
+
+	@Override
+	public boolean deleteFromCity(int cityId) {
+		apartmentRepository.deleteByCityId(cityId);
+		return true;
 	}
 }

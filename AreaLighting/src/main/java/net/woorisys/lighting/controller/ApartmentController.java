@@ -59,6 +59,16 @@ public class ApartmentController {
     }
 	
 	/**
+	 * 조회
+	 * @param model
+	 */
+	@GetMapping("getList")
+	@ResponseBody
+    public ResponseEntity<?> getList(int cityId) {
+		return new ResponseEntity<>(apartmentService.getList(cityId), HttpStatus.OK);
+    }
+	
+	/**
 	 * 등록
 	 * @param city
 	 * @return
@@ -69,7 +79,6 @@ public class ApartmentController {
 		City city = cityService.get(apartment.getCityId());
 		if (city != null) {
 			apartment.setFloors(checkFloors(apartment));
-//			apartment.setCity(city);
 			Apartment response = apartmentService.registToDomain(apartment);
 			if (response != null) {
 				for (Floor floor : apartment.getFloors()) {
@@ -128,10 +137,8 @@ public class ApartmentController {
 	@DeleteMapping("delete")
 	@ResponseBody 
 	public ResponseEntity<?> delete(long id) {
-		if (floorService.deleteFromApartment(id)) {
-			if (apartmentService.delete(id)) {
-				return new ResponseEntity<>(HttpStatus.OK);
-			}
+		if (apartmentService.delete(id)) {
+			return new ResponseEntity<>(HttpStatus.OK);
 		}
 		
 		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);

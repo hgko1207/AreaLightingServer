@@ -55,14 +55,14 @@ function addData(cityId) {
     
     $.ajax({
 		type: "GET",
-       	url: contextPath + "/city/get",
-       	data: {"id": cityId},
+       	url: contextPath + "/apartment/getList",
+       	data: {"cityId": cityId},
        	success: function(response) {
-       		const registButton = `<a href="${contextPath}/apartment/regist?id=${response.id}" 
+       		const registButton = `<a href="${contextPath}/apartment/regist?id=${cityId}" 
     			class="btn bg-blue-400"><i class="icon-pencil5 mr-2"></i>단지 등록</a>`;
             $('#danji_regist').append(registButton);
             
-            $.each(response.apartments, function(index, data) {
+            $.each(response, function(index, data) {
             	let div = `<div class="card-group-control card-group-control-left">
 	    			<div class="card">
 	    				<div class="card-header bg-transparent header-elements-inline">
@@ -93,7 +93,7 @@ function addData(cityId) {
 function deleteApartment(id) {
 	swalInit.fire({
         title: "선택한 단지를 삭제 하시겠습니까?",
-        type: "question",
+        type: "warning",
         confirmButtonText: "확인",
         showCancelButton: true, 
         cancelButtonText: "취소",
@@ -102,9 +102,9 @@ function deleteApartment(id) {
     		$.ajax({
         		url: contextPath + "/apartment/delete",
         		type: "DELETE",
-        		data: { "id": id }, // JSON String으로 전환하여 보낸다.
+        		data: { "id": id },
         		success: function(response) {
-//        			addData(cityId);
+        			addData(cityId);
                	},
                 error: function(response) {
                 	swalInit.fire({title: "삭제를 실패하였습니다.", type: "error"})

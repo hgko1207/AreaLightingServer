@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import net.woorisys.lighting.domain.db.City;
 import net.woorisys.lighting.domain.param.SearchParam;
+import net.woorisys.lighting.service.ApartmentService;
 import net.woorisys.lighting.service.CityService;
 
 /**
@@ -29,6 +30,9 @@ public class CityController {
 	
 	@Autowired
 	private CityService cityService;
+	
+	@Autowired
+	private ApartmentService apartmentService;
 
 	/**
 	 * 목록 화면
@@ -95,9 +99,11 @@ public class CityController {
 	 */
 	@DeleteMapping("delete")
 	@ResponseBody 
-	public ResponseEntity<?> delete(Integer id) {
+	public ResponseEntity<?> delete(int id) {
 		if (cityService.delete(id)) {
-			return new ResponseEntity<>(HttpStatus.OK);
+			if (apartmentService.deleteFromCity(id)) {
+				return new ResponseEntity<>(HttpStatus.OK);
+			}
 		}
 		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 	}

@@ -45,10 +45,6 @@ public class City implements Domain {
 	/** 순서 */
 	private int num;
 
-//	@OneToMany(mappedBy = "city", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-//	@Fetch(FetchMode.SUBSELECT)
-//	private List<Apartment> apartments;
-
 	@CreationTimestamp
 	private LocalDateTime createDate;
 

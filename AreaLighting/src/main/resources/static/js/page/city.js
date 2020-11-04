@@ -14,11 +14,6 @@ const CityManager = function() {
 				},
 				{ data: "name" },
 				{
-					render: function(data, type, row, meta) {
-						return row.apartments.length;
-					}
-				},
-				{
 					width: "10%",
 					render: function(data, type, row, meta) {
 						return '<button type="button" class="btn btn-outline bg-primary text-primary-600 btn-sm"'

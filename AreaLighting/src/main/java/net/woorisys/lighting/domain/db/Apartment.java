@@ -53,12 +53,7 @@ public class Apartment implements Domain {
 	@Column(nullable = false, length = 20)
 	private String password;
 	
-//	@ManyToOne
-//	@JoinColumn(name = "city_id")
-//    @JsonIgnore
-//    private City city;
-	
-	@OneToMany(mappedBy = "apartment", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+	@OneToMany(mappedBy = "apartment", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 //	@Fetch(FetchMode.SUBSELECT)
 	private List<Floor> floors;
 	

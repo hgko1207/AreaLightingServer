@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import net.woorisys.lighting.service.ApartmentService;
 import net.woorisys.lighting.service.CityService;
 
 @Controller
@@ -14,6 +15,9 @@ public class HomeController {
 	
 	@Autowired
 	private CityService cityService;
+	
+	@Autowired
+	private ApartmentService apartmentService;
 
 	@GetMapping("/")
     public String index(Model model) {
@@ -40,5 +44,6 @@ public class HomeController {
 	@GetMapping("home")
     public void home(Model model) {
 		model.addAttribute("cityList", cityService.getList().size());
+		model.addAttribute("apartmentList", apartmentService.getList().size());
     }
 }
