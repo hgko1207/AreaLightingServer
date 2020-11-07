@@ -90,4 +90,9 @@ public class ApartmentServiceImpl implements ApartmentService {
 		apartmentRepository.deleteByCityId(cityId);
 		return true;
 	}
+
+	@Override
+	public boolean login(long id, String password) {
+		return apartmentRepository.findByIdAndPassword(id, password) != null;
+	}
 }

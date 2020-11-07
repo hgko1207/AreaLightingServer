@@ -31,30 +31,34 @@ var Datatables = {
 		
 		return table;
 	},
-	download: function(id, tableOption, info, visible, exportColumns) {
+	order: function(id, tableOption, num, info) {
 		var table = $(id).DataTable({
-			dom: '<"datatable-header"fl><"datatable-scroll-wrap"t><"datatable-footer"iBp>',
 			language: {
-				info: info ? info : " _TOTAL_ 개의 데이터가 있습니다."
+				info: info ? info : " _TOTAL_ 개의 데이터가 있습니다." 
 			},
-			columns: tableOption ? tableOption.columns : null,
-			columnDefs: [
-				{ orderable: true, className: 'reorder', targets: 0 },
-		    	{ orderable: false, targets: '_all' },
-				{ visible: false, targets: visible }
-			],
-			buttons: {
-		        buttons: [{
-	                extend: 'excelHtml5',
-	                className: 'btn bg-primary-400 ml-3',
-                    text: '<i class="icon-folder-download mr-2"></i> 다운로드',
-                    fieldSeparator: '\t',
-		            exportOptions: {
-		                columns: exportColumns
-		            }
-	            }]
-		    },
-			order: [[0, 'asc']]
+		    columns: tableOption ? tableOption.columns : null,
+		    columnDefs: [
+		    	{ orderable: true, className: 'reorder', targets: 0 },
+		    	{ orderable: true, className: 'reorder', targets: num },
+		    	{ orderable: false, targets: '_all' }
+		    ],
+		    order: [[0, 'asc']]
+		});
+		
+		return table;
+	},
+	select: function(id, tableOption, info) {
+		var table = $(id).DataTable({
+			dom: '<"datatable-header"fl><"datatable-scroll-wrap"t>',
+			select: {
+                style: 'single',
+            },
+			language: {
+				info: info ? info : " _TOTAL_ 개의 데이터가 있습니다." 
+			},
+			columns: tableOption.columns,
+		    paging: false,
+		    ordering: false,
 		});
 		
 		return table;
@@ -69,6 +73,20 @@ var Datatables = {
 			contentType: "application/json",
 			success: function(data) {
 				table.rows.add(data).draw();
+		   	}
+		});
+	},
+	selectAdd: function(table, url, param) {
+		table.clear().draw();
+		
+		$.ajax({
+			url: url,
+			type: "POST",
+			data: JSON.stringify(param),
+			contentType: "application/json",
+			success: function(data) {
+				table.rows.add(data).draw();
+				table.row(':eq(0)').select();
 		   	}
 		});
 	},

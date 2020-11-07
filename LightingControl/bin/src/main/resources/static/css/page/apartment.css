@@ -1,0 +1,14 @@
+.table td, .table th {
+	padding: .5rem 1.25rem;
+}
+
+.city-card .card-header {
+	padding-top: .75rem!important;
+	padding-bottom: .75rem!important;
+	border-bottom: 0;
+}
+
+.datatable-header {
+	padding: 0;
+	border-bottom: 0;
+}

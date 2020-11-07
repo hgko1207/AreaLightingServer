@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="layout/default_layout">
+
+    <th:block layout:fragment="css">
+    	<link rel="stylesheet" th:href="@{/css/page/apartment.css}">
+    </th:block>
+    
+    <th:block layout:fragment="content">
+    	<div class="page-header page-header-light">
+	    	<div class="page-header-content header-elements-md-inline">
+				<div class="page-title d-flex">
+					<h4>
+						<i class="icon-office mr-3"></i><span class="font-weight-bold">단지 관리</span>
+					</h4>
+				</div>
+			</div>
+			<div class="breadcrumb-line breadcrumb-line-light header-elements-md-inline">
+				<div class="d-flex">
+					<div class="breadcrumb">
+						<a th:href="@{/home}" class="breadcrumb-item">
+							<i class="icon-home2 mr-2"></i> Home
+						</a>
+						<span class="breadcrumb-item active">단지 관리</span>
+					</div>
+				</div>
+			</div>
+    	</div>
+    	
+    	<div class="content">
+    		<div class="row">
+    			<div class="col-md-2">
+    				<div class="card city-card">
+						<div class="card-header bg-light text-center">
+							<h6 class="card-title font-weight-bold">도시 목록</h6>
+						</div>
+						<table class="table table-bordered" id="cityTable">
+							<thead class="text-center d-none">
+								<tr class="table-active">
+									<th>도시 명</th>
+								</tr>
+							</thead>
+							<tbody class="text-center"></tbody>
+						</table>
+					</div>
+    			</div>
+    			<div class="col-md-6 mr-md-auto">
+    				<div id="apartment_card" class="card d-none">
+    					<div class="card-header header-elements-inline">
+							<h5 id="danji_name" class="card-title">서울의 단지 목록</h5>
+							<div id="danji_regist" class="header-elements">
+							</div>
+						</div>
+						<div id="apartment_body" class="card-body">
+						</div>
+    				</div>
+    			</div>
+    		</div>
+    	</div>
+    </th:block>
+    
+    <th:block layout:fragment="script">
+    	<script th:src="@{/js/page/apartment.js}"></script>
+    </th:block>
+</html>

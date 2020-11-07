@@ -3,11 +3,11 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>net.woorisys.lighting</groupId>
-	<artifactId>AreaLighting</artifactId>
+	<artifactId>LightingControl</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
-	<name>AreaLighting</name>
-	<description>우리시스템</description>
+	<name>LightingControl</name>
+	<description>조명제어시스템</description>
 	
 	<parent>
 		<groupId>org.springframework.boot</groupId>
@@ -91,7 +91,7 @@
 	</dependencies>
 
 	<build>
-		<finalName>AreaLighting</finalName>
+		<finalName>LightingControl</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>

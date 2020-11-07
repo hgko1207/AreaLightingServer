@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="layout/default_layout">
+
+    <th:block layout:fragment="css">
+    </th:block>
+    
+    <th:block layout:fragment="content">
+    	<div class="page-header page-header-light">
+	    	<div class="page-header-content header-elements-md-inline">
+				<div class="page-title d-flex">
+					<h4>
+						<i class="icon-office mr-3"></i><span class="font-weight-bold">단지 수정</span>
+					</h4>
+				</div>
+			</div>
+			<div class="breadcrumb-line breadcrumb-line-light header-elements-md-inline">
+				<div class="d-flex">
+					<div class="breadcrumb">
+						<a th:href="@{/home}" class="breadcrumb-item">
+							<i class="icon-home2 mr-2"></i> Home
+						</a>
+						<span class="breadcrumb-item">단지 관리</span>
+						<span class="breadcrumb-item active">단지 수정</span>
+					</div>
+				</div>
+			</div>
+    	</div>
+    	
+    	<div class="content">
+    		<div class="row">
+    			<div class="col-md-7 mx-md-auto">
+    				<div class="card">
+    					<form id="updateForm" role="form" th:action="@{/apartment/update}">
+    						<div class="card-body">
+    							<input type="hidden" name="id" th:value="${apartment.id}"/>
+	    						<div class="form-group row mt-2">
+									<label class="col-md-3 col-form-label text-md-right">단지 명 :</label>
+									<div class="col-md-7">
+										<input type="text" class="form-control" name="name" th:value="${apartment.name}" autocomplete="off" required/>
+									</div>
+								</div>
+								<div class="form-group row">
+									<label class="col-md-3 col-form-label text-md-right">비밀번호 :</label>
+									<div class="col-md-7">
+										<input type="password" class="form-control" name="password" autocomplete="off" required>
+									</div>
+								</div>
+								<div class="form-group row">
+									<label class="col-md-3 col-form-label text-md-right">비밀번호 확인 :</label>
+									<div class="col-md-7">
+										<input type="password" class="form-control" name="passwordCheck" autocomplete="off" required>
+									</div>
+								</div>
+								
+								<div class="form-group row mt-2">
+									<table class="table col-md-8 mx-md-auto order-list">
+										<thead>
+	                                        <tr>
+	                                            <th scope="col">지하 층</th>
+	                                            <th scope="col">채널번호</th>
+	                                            <th scope="col">
+	                                            	<button type="button" class="btn btn-sm bg-success" id="addrow">
+									            		<i class="icon-plus3 mr-2"></i>추가
+								            		</button>
+	                                            </th>
+	                                        </tr>
+	                                    </thead>
+	                                    <tbody id="floor_tbody"></tbody>
+									</table>
+								</div>
+							</div>
+							<div class="card-footer bg-white d-flex justify-content-center align-items-center py-3">
+								<button type="submit" class="btn bg-blue-400 mr-3 px-4"><i class="icon-pencil5 mr-2"></i>수 정</button>
+								<a href="list" class="btn btn-light px-4"><i class="icon-list mr-2"></i>목 록</a>
+							</div>
+						</form>
+    				</div>
+    			</div>
+    		</div>
+    	</div>
+    </th:block>
+    
+    <th:block layout:fragment="script">
+    	<script th:inline="javascript">
+    	$(document).ready(function () {
+    		var apartment = [[${apartment}]];
+    		var counter = apartment.floors.length;
+    		
+    		$.each(apartment.floors, function(index, data) {
+    			var tr = '<tr>' + 
+   					'<td><input type="text" class="form-control" name="floors[' + index + '].name" value="' + data.name + '" required/></td>' +
+    				'<td><input type="number" class="form-control" name="floors[' + index + '].channel" value="' + data.channel + '" required/></td>';
+    			if (index === 0) {
+    				tr += '<td></td>';
+    			} else {
+    				tr += '<td><button type="button" class="ibtnDel btn btn-sm btn-danger"><i class="icon-minus3 mr-2"></i>삭제</button></td>';
+    			}
+    			tr += '</tr>';
+    			
+    			$('#floor_tbody').append(tr);
+    		});
+    		
+
+    	    $("#addrow").on("click", function () {
+    	        var cols = "";
+    	        cols += '<td><input type="text" class="form-control" name="floors[' + counter + '].name" placeholder="예) 지하 1층" required/></td>';
+    	        cols += '<td><input type="number" class="form-control" name="floors[' + counter + '].channel" placeholder="1 ~ 36" required/></td>';
+    	        cols += '<td><button type="button" class="ibtnDel btn btn-sm btn-danger"><i class="icon-minus3 mr-2"></i>삭제</button></td>';
+    	        
+    	        var newRow = $("<tr>");
+    	        newRow.append(cols);
+    	        
+    	        $("table.order-list").append(newRow);
+    	        counter++;
+    	    });
+
+    	    $("table.order-list").on("click", ".ibtnDel", function (event) {
+    	        $(this).closest("tr").remove();
+    	        counter -= 1;
+    	    });
+    	    
+    	    $('#updateForm').submit(function(e) {
+    	    	e.preventDefault();
+    	    	
+    	    	const password = $('input[name=password]').val();
+    	    	const passwordCheck = $('input[name=passwordCheck]').val();
+    	    	if (password != passwordCheck) {
+    	    		swalInit.fire({title: "비밀번호가 일치하지 않습니다.", type: "error"});
+    	    		return;
+    	    	}
+    	    	
+    	    	var form = $(this);
+    	        var url = form.attr('action');
+    	        var formData = new FormData($("#updateForm")[0]);
+    	        
+    	        $.ajax({
+    	    		type: "PUT",
+    	           	url: url,
+    	           	data: formData,
+    	           	processData: false,
+    	           	contentType: false,
+    	           	success: function(response) {
+    	           		swalInit.fire({
+    	       				title: "단지 정보 수정 되었습니다.", 
+    	       				type: "success"
+    	       			}).then(function(e) {
+    	       				location.replace(contextPath + "/apartment/list");
+    	       			});
+    	           	},
+    	            error: function(response) {
+    	            	swalInit.fire({title: "단지 수정을 실패하였습니다.", type: "error"});
+    	            }
+    	    	});
+    	    });
+    	});
+    	</script>
+    </th:block>
+</html>

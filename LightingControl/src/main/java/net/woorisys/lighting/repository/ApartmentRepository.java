@@ -14,4 +14,6 @@ public interface ApartmentRepository extends DefaultRepository<Apartment, Long> 
 	List<Apartment> findByCityId(int cityId);
 
 	void deleteByCityId(int cityId);
+
+	Apartment findByIdAndPassword(long id, String password);
 }
