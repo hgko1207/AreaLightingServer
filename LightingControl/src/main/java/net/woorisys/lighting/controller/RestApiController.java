@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import net.woorisys.lighting.service.ApartmentService;
 import net.woorisys.lighting.service.CityService;
+import net.woorisys.lighting.service.FloorService;
 
 /**
  * REST API 통신 Controller
@@ -27,6 +28,9 @@ public class RestApiController {
 	
 	@Autowired
 	private ApartmentService apartmentService;
+	
+	@Autowired
+	private FloorService floorService;
 
 	/**
 	 * 도시 조회
@@ -46,6 +50,16 @@ public class RestApiController {
 	@ResponseBody 
 	public ResponseEntity<?> getApartmentList(int cityId) {
 		return new ResponseEntity<>(apartmentService.getList(cityId), HttpStatus.OK);
+	}
+	
+	/**
+	 * 층 조회
+	 * @return
+	 */
+	@GetMapping("floor/list")
+	@ResponseBody 
+	public ResponseEntity<?> getFloorList(long apartmentId) {
+		return new ResponseEntity<>(floorService.getList(apartmentId), HttpStatus.OK);
 	}
 	
 	/**

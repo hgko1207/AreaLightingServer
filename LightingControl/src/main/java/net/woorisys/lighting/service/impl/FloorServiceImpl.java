@@ -64,8 +64,12 @@ public class FloorServiceImpl implements FloorService {
 
 	@Override
 	public boolean deleteFromApartment(long id) {
-		System.err.println(id);
 		floorRepository.deleteByApartmentId(id);
 		return true;
+	}
+
+	@Override
+	public List<Floor> getList(long apartmentId) {
+		return floorRepository.findByApartmentId(apartmentId);
 	}
 }
