@@ -4,11 +4,11 @@ import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.CreationTimestamp;
@@ -18,39 +18,41 @@ import lombok.Data;
 import net.woorisys.lighting.domain.Domain;
 
 /**
- * 유저 관리 테이블 도메인(모바일 로그인 시 사용)
+ * 웹에서 사용자 관리 테이블 도메인
  * 
  * @author hgko
  *
  */
 @Entity
-@Table(name = "tb_user")
+@Table(name = "tb_admin")
 @Data
-public class User implements Domain {
+public class Admin implements Domain {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
+	private int id;
 	
+	/** 사용자ID */
 	@Column(nullable = false, length = 20)
 	private String userId;
-	
-	@Column(nullable = false, length = 20)
+
+	@Column(nullable = false, length = 24)
 	private String password;
-	
-	/** 도시 */
-	@OneToOne
-    @JoinColumn(name = "city_id")
-	private City city;
-	
-	/** 단지 */
-	@OneToOne
-    @JoinColumn(name = "apartment_id")
-	private Apartment apartment;
+
+	@Column(nullable = false, length = 20)
+	private String name;
 	
 	@CreationTimestamp
 	private LocalDateTime createDate;
 	
 	@UpdateTimestamp
 	private LocalDateTime updateDate;
+	
+	@Enumerated(EnumType.STRING)
+	@Column(nullable = false)
+	private UserRole role;
+	
+	public enum UserRole {
+		ADMIN, GUEST;
+	}
 }

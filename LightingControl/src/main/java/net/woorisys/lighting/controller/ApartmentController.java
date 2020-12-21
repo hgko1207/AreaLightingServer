@@ -111,7 +111,6 @@ public class ApartmentController {
 	public ResponseEntity<?> update(Apartment apartment) {
 		Apartment temp = apartmentService.get(apartment.getId());
 		temp.setName(apartment.getName());
-		temp.setPassword(apartment.getPassword());
 		temp.setFloors(checkFloors(apartment));
 		
 		if (floorService.deleteFromApartment(temp.getId())) {

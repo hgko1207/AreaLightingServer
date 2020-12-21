@@ -40,10 +40,6 @@ public class Apartment implements Domain {
 	@Column(nullable = false, length = 45)
 	private String name;
 	
-	/** 비밀번호 */
-	@Column(nullable = false, length = 20)
-	private String password;
-	
 	@OneToMany(mappedBy = "apartment", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 //	@Fetch(FetchMode.SUBSELECT)
 	private List<Floor> floors;

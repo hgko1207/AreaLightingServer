@@ -12,21 +12,21 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Component;
 
-import net.woorisys.lighting.domain.db.User;
-import net.woorisys.lighting.service.UserService;
+import net.woorisys.lighting.domain.db.Admin;
+import net.woorisys.lighting.service.AdminService;
 
 @Component
 public class UserAuthenticationProvider implements AuthenticationProvider {
 
 	@Autowired
-	private UserService userService;
+	private AdminService adminService;
 	
 	@Override
 	public Authentication authenticate(Authentication authentication) throws AuthenticationException {
 		String username = (String) authentication.getPrincipal();
         String password = (String) authentication.getCredentials();
         
-        User user = userService.login(username, password);
+        Admin user = adminService.login(username, password);
         if (user != null) {
         	Collection<SimpleGrantedAuthority> roles = new ArrayList<SimpleGrantedAuthority>();
         	roles.add(new SimpleGrantedAuthority("ROLE_USER"));

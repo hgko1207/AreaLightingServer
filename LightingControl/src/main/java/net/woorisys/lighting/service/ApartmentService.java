@@ -14,5 +14,4 @@ public interface ApartmentService extends CRUDService<Apartment, Long> {
 	
 	boolean deleteFromCity(int cityId);
 
-	boolean login(long id, String password);
 }

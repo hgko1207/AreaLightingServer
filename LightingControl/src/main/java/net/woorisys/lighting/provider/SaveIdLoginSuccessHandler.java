@@ -11,7 +11,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
 
 import lombok.Setter;
-import net.woorisys.lighting.domain.db.User;
+import net.woorisys.lighting.domain.db.Admin;
 
 @Setter
 public class SaveIdLoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessHandler {
@@ -28,8 +28,8 @@ public class SaveIdLoginSuccessHandler extends SavedRequestAwareAuthenticationSu
 		
 		String remember = request.getParameter(REQUEST_PARAM_NAME);
 		if (remember != null) {
-			User user = (User) authentication.getPrincipal();
-			Cookie cookie = new Cookie(COOKIE_NAME, user.getUserId());
+			Admin admin = (Admin) authentication.getPrincipal();
+			Cookie cookie = new Cookie(COOKIE_NAME, admin.getUserId());
 			cookie.setMaxAge(maxAge);
 			response.addCookie(cookie);
 		} else {

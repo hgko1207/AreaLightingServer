@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import net.woorisys.lighting.domain.db.User;
+import net.woorisys.lighting.domain.param.SearchParam;
 import net.woorisys.lighting.repository.UserRepository;
 import net.woorisys.lighting.service.UserService;
 
@@ -24,7 +25,7 @@ public class UserServiceImpl implements UserService {
 	private UserRepository userRepository;
 
 	@Override
-	public User get(Integer id) {
+	public User get(Long id) {
 		return userRepository.findById(id).get();
 	}
 
@@ -53,7 +54,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public boolean delete(Integer id) {
+	public boolean delete(Long id) {
 		userRepository.deleteById(id);
 		return true;
 	}
@@ -63,7 +64,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public User login(String userId, String password) {
-		return userRepository.findByUserIdAndPassword(userId, password);
+	public List<User> getList(SearchParam param) {
+		return getList();
 	}
 }

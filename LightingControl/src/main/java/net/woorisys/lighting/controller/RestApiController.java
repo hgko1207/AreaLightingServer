@@ -69,6 +69,7 @@ public class RestApiController {
 	@PostMapping("login")
 	@ResponseBody 
 	public ResponseEntity<?> login(long id, String password) {
-		return new ResponseEntity<>(apartmentService.login(id, password), HttpStatus.OK);
+//		return new ResponseEntity<>(apartmentService.login(id, password), HttpStatus.OK);
+		return new ResponseEntity<>(HttpStatus.OK);
 	}
 }
