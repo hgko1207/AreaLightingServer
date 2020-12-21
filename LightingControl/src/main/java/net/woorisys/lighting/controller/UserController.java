@@ -10,22 +10,29 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import net.woorisys.lighting.domain.db.User;
 import net.woorisys.lighting.domain.param.SearchParam;
+import net.woorisys.lighting.service.CityService;
 import net.woorisys.lighting.service.UserService;
 
 /**
  * 유저 화면 관리 Controller
+ * 
  * @author hgko
  *
  */
 @Controller
+@RequestMapping("user")
 public class UserController {
 	
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private CityService cityService;
 	
 	/**
 	 * 목록 화면
@@ -33,6 +40,7 @@ public class UserController {
 	 */
 	@GetMapping("list")
     public void list(Model model) {
+		model.addAttribute("cityList", cityService.getList());
     }
 	
 	/**
