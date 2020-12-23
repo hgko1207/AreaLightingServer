@@ -9,4 +9,6 @@ public interface UserService extends CRUDService<User, Long> {
 
 	List<User> getList(SearchParam param);
 
+	User login(String id, String password);
+
 }

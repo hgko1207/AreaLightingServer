@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import net.woorisys.lighting.service.ApartmentService;
 import net.woorisys.lighting.service.CityService;
 import net.woorisys.lighting.service.FloorService;
+import net.woorisys.lighting.service.UserService;
 
 /**
  * REST API 통신 Controller
@@ -31,6 +32,9 @@ public class RestApiController {
 	
 	@Autowired
 	private FloorService floorService;
+	
+	@Autowired
+	private UserService userService;
 
 	/**
 	 * 도시 조회
@@ -63,13 +67,12 @@ public class RestApiController {
 	}
 	
 	/**
-	 * 단지 조회
+	 * 로그인
 	 * @return
 	 */
 	@PostMapping("login")
 	@ResponseBody 
-	public ResponseEntity<?> login(long id, String password) {
-//		return new ResponseEntity<>(apartmentService.login(id, password), HttpStatus.OK);
-		return new ResponseEntity<>(HttpStatus.OK);
+	public ResponseEntity<?> login(String id, String password) {
+		return new ResponseEntity<>(userService.login(id, password), HttpStatus.OK);
 	}
 }

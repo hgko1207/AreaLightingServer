@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="layout/default_layout">
+
+    <th:block layout:fragment="css">
+    </th:block>
+    
+    <th:block layout:fragment="content">
+    	<div class="page-header page-header-light">
+	    	<div class="page-header-content header-elements-md-inline">
+				<div class="page-title d-flex">
+					<h4>
+						<i class="icon-user mr-3"></i><span class="font-weight-bold">유저 등록</span>
+					</h4>
+				</div>
+			</div>
+			<div class="breadcrumb-line breadcrumb-line-light header-elements-md-inline">
+				<div class="d-flex">
+					<div class="breadcrumb">
+						<a th:href="@{/home}" class="breadcrumb-item">
+							<i class="icon-home2 mr-2"></i> Home
+						</a>
+						<span class="breadcrumb-item">유저 관리</span>
+						<span class="breadcrumb-item active">유저 등록</span>
+					</div>
+				</div>
+			</div>
+    	</div>
+    	
+    	<div class="content">
+    		<div class="row">
+    			<div class="col-md-7 mx-md-auto">
+    				<div class="card">
+    					<form id="registForm" role="form" method="POST" th:action="@{/user/regist}">
+    						<div class="card-body">
+    							<div class="form-group row">
+									<label class="col-form-label col-md-4 text-md-right">아이디 : </label>
+									<div class="col-md-6">
+										<input type="text" class="form-control" name="userId">
+									</div>
+								</div>
+								<div class="form-group row">
+									<label class="col-form-label col-md-4 text-md-right">비밀번호 : </label>
+									<div class="col-md-6">
+										<input type="text" class="form-control" name="password">
+									</div>
+								</div>
+								<div class="form-group row">
+									<label class="col-form-label col-md-4 text-md-right">비밀번호 확인 : </label>
+									<div class="col-md-6">
+										<input type="text" class="form-control" name="passwordCheck">
+									</div>
+								</div>
+								<div class="form-group row">
+									<label class="col-form-label col-md-4 text-md-right">도시 선택 : </label>
+									<div class="col-md-6">
+										<select class="form-control form-control-select2" id="citySelect" name="cityId" data-fouc>
+											<option th:each="city : ${cityList}" th:value="${city.id}" th:text="${city.name}"></option>
+										</select>
+									</div>
+								</div>
+								<div class="form-group row">
+									<label class="col-form-label col-md-4 text-md-right">단지 선택 : </label>
+									<div class="col-md-6">
+										<select class="form-control form-control-select2" id="apartmentSelect" name="apartmentId" data-fouc>
+											<option th:each="apartment : ${apartmentList}" th:value="${apartment.id}" 
+													th:text="${apartment.name}"></option>
+										</select>
+									</div>
+								</div>
+    						</div>
+    						<div class="card-footer bg-white d-flex justify-content-center align-items-center py-3">
+								<button type="submit" class="btn bg-blue-400 mr-3 px-4"><i class="icon-pencil5 mr-2"></i>등 록</button>
+								<a href="list" class="btn btn-light px-4"><i class="icon-close mr-2"></i>취 소</a>
+							</div>
+						</form>
+    				</div>
+    			</div>
+    		</div>
+    	</div>
+    </th:block>
+    
+    <th:block layout:fragment="script">
+    	<script>
+    	$(document).ready(function () {
+    		$('#citySelect').change(() => {
+    			$("#apartmentSelect").empty();
+    			
+    			$.ajax({
+    				url: contextPath + "/user/apartment/list",
+    				type: "GET",
+    				data: {"cityId": $(this).val()},
+    				success: function(response) {
+    					if (response.length > 0) {
+    						$.each(response, function (i, item) {
+    							$('#apartmentSelect').append($('<option>', {
+    							    value: item.id,
+    							    text: item.name
+    							}));
+    						});
+    					}
+    		       	}
+    			}); 
+    		});
+    		
+    	    $('#registForm').submit((e) => {
+    	    	e.preventDefault();
+    	    	
+    	    	if (!$('input[name=userId]').val()) {
+    	    		swalInit.fire({title: "아이디를 입력하세요.", type: "warning"});
+    	    		return;
+    	    	}
+    	    	
+    	    	if (!$('input[name=password]').val()) {
+    	    		swalInit.fire({title: "비밀번호를 입력하세요.", type: "warning"});
+    	    		return;
+    	    	}
+    	    	
+    	    	if (!$('select[name=apartmentId]').val()) {
+    	    		swalInit.fire({title: "단지를 선택하세요.", type: "warning"});
+    	    		return;
+    	    	}
+    	    	
+    	    	const password = $('input[name=password]').val();
+    	    	const passwordCheck = $('input[name=passwordCheck]').val();
+    	    	if (password != passwordCheck) {
+    	    		swalInit.fire({title: "비밀번호가 일치하지 않습니다.", type: "error"});
+    	    		return;
+    	    	}
+    	    	
+    	    	var form = $(this);
+    	        var url = form.attr('action');
+    	        var formData = new FormData($("#registForm")[0]);
+
+    	        $.ajax({
+    	    		type: "POST",
+    	           	url: url,
+    	           	data: formData,
+    	           	processData: false,
+    	           	contentType: false,
+    	           	success: function(response) {
+    	           		swalInit.fire({
+    	       				title: "유저 등록이 되었습니다.", 
+    	       				type: "success"
+    	       			}).then(function(e) {
+    	       				location.replace(contextPath + "/user/list");
+    	       			});
+    	           	},
+    	            error: function(response) {
+    	            	swalInit.fire({title: "유저 등록을 실패하였습니다.", type: "error"});
+    	            }
+    	    	});
+    	    });
+    	});
+    	</script>
+    </th:block>
+</html>

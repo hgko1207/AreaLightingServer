@@ -67,4 +67,9 @@ public class UserServiceImpl implements UserService {
 	public List<User> getList(SearchParam param) {
 		return getList();
 	}
+
+	@Override
+	public User login(String id, String password) {
+		return userRepository.findByUserIdAndPassword(id, password);
+	}
 }

@@ -12,9 +12,17 @@ const UserManager = function() {
 						return meta.row + 1
 					}
 				},
-				{ data: "name" },
-				{ data: "city" },
-				{ data: "apartment" },
+				{ data: "userId" },
+				{
+					render: function(data, type, row, meta) {
+						return row.city.name;
+					}
+				},
+				{
+					render: function(data, type, row, meta) {
+						return row.apartment.name;
+					}
+				},
 				{
 					width: "10%",
 					render: function(data, type, row, meta) {
@@ -24,7 +32,7 @@ const UserManager = function() {
 						+ 'onClick="UserManager._delete(' + row.id + ')"><i class="icon-trash"></i></button>';
 					}
 				}
-				]
+			]
 		},
 		init: function() {
 			this.table = Datatables.order(this.ele, this.option, 1);
@@ -40,14 +48,6 @@ const UserManager = function() {
 	const Control = function() {
 		$("#searchBtn").click(function() {
 			DataTable.search();
-		});
-
-		$("#registForm").submit(function(e) {
-			e.preventDefault();
-			var form = $(this);
-			var url = form.attr('action');
-			
-		    registCommon(url, form.serializeObject(), name, UserManager);
 		});
 
 		$('#updateForm').submit(function(e) {
@@ -75,12 +75,11 @@ const UserManager = function() {
 	    		success: function(response) {
 	    			$('#updateForm input[name="id"]').val(response.id);
 	    			$('#updateForm input[name="name"]').val(response.name);
-	    			$("#updateModal").modal();
+	    			$('#updateModal').modal();
 	           	}
 	    	}); 
 		},
 		success: function() {
-			$('#registForm input[name="name"]').val("");
 			DataTable.search();
 		}
 	}

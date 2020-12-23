@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -47,6 +48,12 @@ public class User implements Domain {
 	@OneToOne
     @JoinColumn(name = "apartment_id")
 	private Apartment apartment;
+	
+	@Transient
+	private int cityId;
+	
+	@Transient
+	private long apartmentId;
 	
 	@CreationTimestamp
 	private LocalDateTime createDate;
