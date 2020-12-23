@@ -28,6 +28,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.antMatchers("/home").access("hasRole('ROLE_USER')")
 			.antMatchers("/city/**").access("hasRole('ROLE_USER')")
 			.antMatchers("/apartment/**").access("hasRole('ROLE_USER')")
+			.antMatchers("/user/**").access("hasRole('ROLE_USER')")
 		.and()
 			// 로그인 페이지 및 성공 url, handler 그리고 로그인 시 사용되는 id, password 파라미터 정의
 			.formLogin()

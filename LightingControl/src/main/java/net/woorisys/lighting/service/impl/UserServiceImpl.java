@@ -65,6 +65,17 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public List<User> getList(SearchParam param) {
+		if (param.getCity().equals("전체")) {
+			if (param.getName() != null && !param.getName().isEmpty()) {
+				return userRepository.findByUserIdContaining(param.getName());
+			}
+		} else {
+			if (param.getName() != null && !param.getName().isEmpty()) {
+				return userRepository.findByCityIdAndUserIdContaining(Integer.parseInt(param.getCity()), param.getName());
+			} else {
+				return userRepository.findByCityId(Integer.parseInt(param.getCity()));
+			}
+		}
 		return getList();
 	}
 

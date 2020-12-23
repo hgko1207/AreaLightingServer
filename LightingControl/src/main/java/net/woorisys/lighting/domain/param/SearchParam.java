@@ -6,4 +6,6 @@ import lombok.Data;
 public class SearchParam {
 
 	private String name;
+	
+	private String city;
 }

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import net.woorisys.lighting.service.ApartmentService;
 import net.woorisys.lighting.service.CityService;
+import net.woorisys.lighting.service.UserService;
 
 @Controller
 public class HomeController {
@@ -18,6 +19,9 @@ public class HomeController {
 	
 	@Autowired
 	private ApartmentService apartmentService;
+	
+	@Autowired
+	private UserService userService;
 
 	@GetMapping("/")
     public String index(Model model) {
@@ -45,5 +49,6 @@ public class HomeController {
     public void home(Model model) {
 		model.addAttribute("cityList", cityService.getList().size());
 		model.addAttribute("apartmentList", apartmentService.getList().size());
+		model.addAttribute("userList", userService.getList().size());
     }
 }

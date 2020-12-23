@@ -43,18 +43,6 @@
 										<input type="text" class="form-control" name="name" autocomplete="off" required>
 									</div>
 								</div>
-								<div class="form-group row">
-									<label class="col-md-3 col-form-label text-md-right">비밀번호 :</label>
-									<div class="col-md-7">
-										<input type="password" class="form-control" name="password" autocomplete="off" required>
-									</div>
-								</div>
-								<div class="form-group row">
-									<label class="col-md-3 col-form-label text-md-right">비밀번호 확인 :</label>
-									<div class="col-md-7">
-										<input type="password" class="form-control" name="passwordCheck" autocomplete="off" required>
-									</div>
-								</div>
 								
 								<div class="form-group row mt-2">
 									<table class="table col-md-8 mx-md-auto order-list">
@@ -121,13 +109,6 @@
     	    
     	    $('#registForm').submit(function(e) {
     	    	e.preventDefault();
-    	    	
-    	    	const password = $('input[name=password]').val();
-    	    	const passwordCheck = $('input[name=passwordCheck]').val();
-    	    	if (password != passwordCheck) {
-    	    		swalInit.fire({title: "비밀번호가 일치하지 않습니다.", type: "error"});
-    	    		return;
-    	    	}
     	    	
     	    	var form = $(this);
     	        var url = form.attr('action');

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import net.woorisys.lighting.domain.db.Apartment;
 import net.woorisys.lighting.domain.db.City;
 import net.woorisys.lighting.domain.db.User;
 import net.woorisys.lighting.domain.param.SearchParam;
@@ -121,7 +122,12 @@ public class UserController {
 	@PutMapping("update")
 	@ResponseBody 
 	public ResponseEntity<?> update(User user) {
-		if (userService.update(user)) {
+		User temp = userService.get(user.getId());
+		temp.setPassword(user.getPassword());
+		temp.setCity(cityService.get(user.getCityId()));
+		temp.setApartment(apartmentService.get(user.getApartmentId()));
+		
+		if (userService.update(temp)) {
 			return new ResponseEntity<>(HttpStatus.OK);
 		}
 		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);

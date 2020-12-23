@@ -41,6 +41,7 @@ const UserManager = function() {
 		search: function() {
 			var param = new Object();
 			param.name = $("input[name=name]").val();
+			param.city = $("select[name=city]").val();
 			Datatables.rowsAdd(this.table, contextPath + "/user/search", param);
 		}
 	}
@@ -54,6 +55,23 @@ const UserManager = function() {
 			e.preventDefault();
 			var form = $(this);
 			var url = form.attr('action');
+			
+			if (!$('input[name=password]').val()) {
+	    		swalInit.fire({title: "비밀번호를 입력하세요.", type: "warning"});
+	    		return;
+	    	}
+	    	
+	    	if (!$('select[name=apartmentId]').val()) {
+	    		swalInit.fire({title: "단지를 선택하세요.", type: "warning"});
+	    		return;
+	    	}
+	    	
+	    	const password = $('input[name=password]').val();
+	    	const passwordCheck = $('input[name=passwordCheck]').val();
+	    	if (password != passwordCheck) {
+	    		swalInit.fire({title: "비밀번호가 일치하지 않습니다.", type: "error"});
+	    		return;
+	    	}
 			
 		 	updateModalCommon(url, form.serializeObject(), name, DataTable, "updateModal");
 		}); 
@@ -72,10 +90,30 @@ const UserManager = function() {
 	    		url: contextPath + "/user/get",
 	    		type: "GET",
 	    		data: {"id": id},
-	    		success: function(response) {
-	    			$('#updateForm input[name="id"]').val(response.id);
-	    			$('#updateForm input[name="name"]').val(response.name);
-	    			$('#updateModal').modal();
+	    		success: function(user) {
+	    			$('#updateForm input[name="id"]').val(user.id);
+	    			$('#updateForm input[name="userId"]').val(user.userId);
+	    			$('#updateForm select[name="cityId"]').val(user.city.id);
+	    			
+	    			$.ajax({
+	    				url: contextPath + "/user/apartment/list",
+	    				type: "GET",
+	    				data: {"cityId": user.city.id},
+	    				success: function(response) {
+	    					if (response.length > 0) {
+	    						$.each(response, function (i, item) {
+	    							$('#apartmentSelect').append($('<option>', {
+	    							    value: item.id,
+	    							    text: item.name
+	    							}));
+	    						});
+	    						
+	    						$('#updateForm select[name="apartmentId"]').val(user.apartment.id);
+	    					}
+	    					
+	    					$('#updateModal').modal();
+	    		       	}
+	    			}); 
 	           	}
 	    	}); 
 		},
@@ -87,4 +125,24 @@ const UserManager = function() {
 
 $(document).ready(function() {
 	UserManager.init();
+	
+	$('#citySelect').change(() => {
+		$("#apartmentSelect").empty();
+		
+		$.ajax({
+			url: contextPath + "/user/apartment/list",
+			type: "GET",
+			data: {"cityId": $('#citySelect').val()},
+			success: function(response) {
+				if (response.length > 0) {
+					$.each(response, function (i, item) {
+						$('#apartmentSelect').append($('<option>', {
+						    value: item.id,
+						    text: item.name
+						}));
+					});
+				}
+	       	}
+		}); 
+	});
 });
