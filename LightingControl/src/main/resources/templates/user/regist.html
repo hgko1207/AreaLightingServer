@@ -89,8 +89,9 @@
     			$.ajax({
     				url: contextPath + "/user/apartment/list",
     				type: "GET",
-    				data: {"cityId": $(this).val()},
+    				data: {"cityId": $('#citySelect').val()},
     				success: function(response) {
+    					console.log(response);
     					if (response.length > 0) {
     						$.each(response, function (i, item) {
     							$('#apartmentSelect').append($('<option>', {
