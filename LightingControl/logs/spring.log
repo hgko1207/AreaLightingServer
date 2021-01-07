@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 2021-01-04 19:44:37.435  INFO 9120 --- [restartedMain] n.w.lighting.AreaLightingApplication     : Starting AreaLightingApplication on DESKTOP-08OF09U with PID 9120 (C:\Users\hgko\git\LightingControlServer\LightingControl\target\classes started by hgko in C:\Users\hgko\git\LightingControlServer\LightingControl)
 2021-01-04 19:44:37.441 DEBUG 9120 --- [restartedMain] n.w.lighting.AreaLightingApplication     : Running with Spring Boot v2.3.4.RELEASE, Spring v5.2.9.RELEASE
 2021-01-04 19:44:37.441  INFO 9120 --- [restartedMain] n.w.lighting.AreaLightingApplication     : No active profile set, falling back to default profiles: default
@@ -34,3 +35,39 @@
 2021-01-04 21:44:58.952  INFO 9120 --- [RMI TCP Connection(130)-127.0.0.1] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
 2021-01-04 21:44:58.954  INFO 9120 --- [RMI TCP Connection(130)-127.0.0.1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
 2021-01-04 21:44:58.958  INFO 9120 --- [RMI TCP Connection(130)-127.0.0.1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+=======
+2021-01-06 17:55:10.372  INFO 51180 --- [restartedMain] n.w.lighting.AreaLightingApplication     : Starting AreaLightingApplication on DESKTOP-CMG60PK with PID 51180 (C:\Users\hgko\git\LightingControlServer\LightingControl\target\classes started by hgko in C:\Users\hgko\git\LightingControlServer\LightingControl)
+2021-01-06 17:55:10.378 DEBUG 51180 --- [restartedMain] n.w.lighting.AreaLightingApplication     : Running with Spring Boot v2.3.4.RELEASE, Spring v5.2.9.RELEASE
+2021-01-06 17:55:10.378  INFO 51180 --- [restartedMain] n.w.lighting.AreaLightingApplication     : No active profile set, falling back to default profiles: default
+2021-01-06 17:55:10.549  INFO 51180 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2021-01-06 17:55:10.549  INFO 51180 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2021-01-06 17:55:11.384  INFO 51180 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFERRED mode.
+2021-01-06 17:55:11.546  INFO 51180 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 155ms. Found 5 JPA repository interfaces.
+2021-01-06 17:55:12.106  INFO 51180 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2021-01-06 17:55:12.113  INFO 51180 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2021-01-06 17:55:12.114  INFO 51180 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.38]
+2021-01-06 17:55:12.235  INFO 51180 --- [restartedMain] o.a.c.c.C.[.[localhost].[/lighting]      : Initializing Spring embedded WebApplicationContext
+2021-01-06 17:55:12.235  INFO 51180 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1685 ms
+2021-01-06 17:55:12.429  INFO 51180 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2021-01-06 17:55:12.481  INFO 51180 --- [task-1] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2021-01-06 17:55:12.511  WARN 51180 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2021-01-06 17:55:12.531  INFO 51180 --- [task-1] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.4.21.Final
+2021-01-06 17:55:12.704  INFO 51180 --- [task-1] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+2021-01-06 17:55:12.794  INFO 51180 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@295f3130, org.springframework.security.web.context.SecurityContextPersistenceFilter@6dddaeac, org.springframework.security.web.header.HeaderWriterFilter@243e3c21, org.springframework.security.web.authentication.logout.LogoutFilter@2aee64ba, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@35366959, org.springframework.security.web.session.ConcurrentSessionFilter@5153f858, org.springframework.security.web.authentication.www.BasicAuthenticationFilter@6692ba57, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@5e3db6b0, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@7b4b1e81, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@787a216a, org.springframework.security.web.session.SessionManagementFilter@786dc6, org.springframework.security.web.access.ExceptionTranslationFilter@71669573, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@586a22e8]
+2021-01-06 17:55:12.801  INFO 51180 --- [task-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2021-01-06 17:55:12.963  INFO 51180 --- [task-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2021-01-06 17:55:12.976  INFO 51180 --- [task-1] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+2021-01-06 17:55:13.552  INFO 51180 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2021-01-06 17:55:13.616  INFO 51180 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path '/lighting'
+2021-01-06 17:55:13.620  INFO 51180 --- [restartedMain] DeferredRepositoryInitializationListener : Triggering deferred initialization of Spring Data repositories…
+2021-01-06 17:55:14.108  INFO 51180 --- [task-1] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2021-01-06 17:55:14.116  INFO 51180 --- [task-1] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2021-01-06 17:55:14.451  INFO 51180 --- [restartedMain] DeferredRepositoryInitializationListener : Spring Data repositories initialized!
+2021-01-06 17:55:14.458  INFO 51180 --- [restartedMain] n.w.lighting.AreaLightingApplication     : Started AreaLightingApplication in 4.401 seconds (JVM running for 5.223)
+2021-01-06 17:55:16.529  INFO 51180 --- [http-nio-8080-exec-1] o.a.c.c.C.[.[localhost].[/lighting]      : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2021-01-06 17:55:16.529  INFO 51180 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2021-01-06 17:55:16.536  INFO 51180 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 6 ms
+2021-01-06 17:55:19.588  WARN 51180 --- [http-nio-8080-exec-9] n.n.u.t.decorators.DecoratorProcessor    : The layout:decorator/data-layout-decorator processor has been deprecated and will be removed in the next major version of the layout dialect.  Please use layout:decorate/data-layout-decorate instead to future-proof your code.  See https://github.com/ultraq/thymeleaf-layout-dialect/issues/95 for more information.
+2021-01-06 17:55:19.711  WARN 51180 --- [http-nio-8080-exec-9] n.n.u.t.expressions.ExpressionProcessor  : Fragment expression "layout/default_layout" is being wrapped as a Thymeleaf 3 fragment expression (~{...}) for backwards compatibility purposes.  This wrapping will be dropped in the next major version of the expression processor, so please rewrite as a Thymeleaf 3 fragment expression to future-proof your code.  See https://github.com/thymeleaf/thymeleaf/issues/451 for more information.
+2021-01-06 17:55:19.923  WARN 51180 --- [http-nio-8080-exec-9] n.n.u.t.fragments.FragmentProcessor      : You don't need to put the layout:fragment/data-layout-fragment attribute into the <head> section - the decoration process will automatically copy the <head> section of your content templates into your layout page.
+>>>>>>> branch 'master' of https://github.com/hgko1207/LightingControlServer.git
